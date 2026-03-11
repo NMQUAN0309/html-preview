@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solar System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="hud">
+    <h1>Solar System</h1>
+    <p class="sub">click a planet to inspect</p>
+  </div>
+
+  <div class="scene">
+    <canvas id="stars"></canvas>
+
+    <div class="orbit" id="orbit-mercury" style="--r:90px;--dur:4s">
+      <div class="planet mercury" data-name="Mercury" data-info="Closest to the Sun. No atmosphere. Extreme temperatures." data-color="#b5b5b5"></div>
+    </div>
+    <div class="orbit" id="orbit-venus" style="--r:140px;--dur:7s">
+      <div class="planet venus" data-name="Venus" data-info="Hottest planet. Thick toxic atmosphere. Spins backwards." data-color="#e8cda0"></div>
+    </div>
+    <div class="orbit" id="orbit-earth" style="--r:200px;--dur:12s">
+      <div class="planet earth" data-name="Earth" data-info="Our home. Only known planet with life. 71% water." data-color="#4fa3e0"></div>
+    </div>
+    <div class="orbit" id="orbit-mars" style="--r:265px;--dur:20s">
+      <div class="planet mars" data-name="Mars" data-info="The Red Planet. Has the tallest volcano in the solar system." data-color="#c1440e"></div>
+    </div>
+    <div class="orbit" id="orbit-jupiter" style="--r:340px;--dur:35s">
+      <div class="planet jupiter" data-name="Jupiter" data-info="Largest planet. Giant storm (Great Red Spot) for 350+ years." data-color="#c88b3a"></div>
+    </div>
+
+    <div class="sun">☀️</div>
+  </div>
+
+  <div class="panel" id="panel">
+    <button class="close-btn" id="closeBtn">✕</button>
+    <div class="panel-dot" id="panelDot"></div>
+    <h2 id="panelName">Planet</h2>
+    <p id="panelInfo">Info here.</p>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
