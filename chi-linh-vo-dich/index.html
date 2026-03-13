@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chị Linh Vô Địch 🏆</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Be+Vietnam+Pro:wght@400;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+
+    /* ===== Stars background ===== */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      animation: twinkle var(--d) ease-in-out infinite alternate;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.1; transform: scale(1); }
+      to   { opacity: 1;   transform: scale(1.4); }
+    }
+
+    /* ===== Floating emoji ===== */
+    .floaties {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .floaty {
+      position: absolute;
+      font-size: clamp(1.4rem, 3vw, 2.5rem);
+      animation: floatUp var(--d) linear infinite;
+      opacity: 0;
+      bottom: -60px;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.8; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ===== Crown bounce ===== */
+    .crown {
+      font-size: clamp(4rem, 10vw, 7rem);
+      animation: crownBounce 1.2s ease-in-out infinite;
+      z-index: 2;
+      filter: drop-shadow(0 0 20px gold);
+    }
+    @keyframes crownBounce {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-18px) rotate(5deg); }
+    }
+
+    /* ===== Main card ===== */
+    .card {
+      position: relative;
+      z-index: 3;
+      margin-top: 16px;
+      background: rgba(255,255,255,0.07);
+      border: 2px solid rgba(255,215,0,0.4);
+      border-radius: 2rem;
+      padding: clamp(1.5rem, 5vw, 3rem) clamp(2rem, 7vw, 5rem);
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 60px rgba(255,215,0,0.2), 0 0 0 1px rgba(255,255,255,0.08);
+      animation: cardPulse 3s ease-in-out infinite;
+    }
+    @keyframes cardPulse {
+      0%, 100% { box-shadow: 0 8px 60px rgba(255,215,0,0.2), 0 0 0 1px rgba(255,255,255,0.08); }
+      50%       { box-shadow: 0 8px 90px rgba(255,215,0,0.45), 0 0 0 1px rgba(255,255,255,0.15); }
+    }
+
+    .main-title {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2.4rem, 8vw, 5.5rem);
+      background: linear-gradient(90deg, #FFD700, #FF6B6B, #FFD700, #fff700);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shine 2.5s linear infinite;
+      line-height: 1.1;
+      text-shadow: none;
+    }
+    @keyframes shine {
+      0%   { background-position: 0% center; }
+      100% { background-position: 300% center; }
+    }
+
+    .sub-title {
+      font-size: clamp(1rem, 3vw, 1.6rem);
+      color: rgba(255,255,255,0.85);
+      margin-top: 0.5rem;
+      letter-spacing: 2px;
+      animation: fadeSlide 1s ease both;
+    }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Badges ===== */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      justify-content: center;
+      margin-top: 1.6rem;
+      z-index: 3;
+      position: relative;
+    }
+    .badge {
+      background: rgba(255,215,0,0.15);
+      border: 1.5px solid rgba(255,215,0,0.5);
+      color: #FFD700;
+      font-size: clamp(0.75rem, 2vw, 1rem);
+      font-weight: 700;
+      padding: 0.45rem 1rem;
+      border-radius: 99px;
+      animation: badgePop var(--d) ease both;
+    }
+    @keyframes badgePop {
+      0%   { transform: scale(0) rotate(-10deg); opacity: 0; }
+      70%  { transform: scale(1.1) rotate(3deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    /* ===== Sparkle ring ===== */
+    .sparkle-ring {
+      position: absolute;
+      inset: -20px;
+      border-radius: 2.5rem;
+      border: 2px dashed rgba(255,215,0,0.25);
+      animation: spinRing 12s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes spinRing { to { transform: rotate(360deg); } }
+
+    /* ===== Laser beams ===== */
+    .lasers {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .laser {
+      position: absolute;
+      height: 2px;
+      width: 120vw;
+      left: -10vw;
+      background: linear-gradient(90deg, transparent, rgba(255,215,0,0.4), transparent);
+      animation: laserSweep var(--d) ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes laserSweep {
+      0%   { top: 110%; opacity: 0; }
+      30%  { opacity: 1; }
+      70%  { opacity: 1; }
+      100% { top: -10%;  opacity: 0; }
+    }
+
+    /* ===== Confetti burst ===== */
+    .confetti-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      top: -20px;
+      border-radius: 2px;
+      animation: confettiFall var(--d) linear infinite;
+      opacity: 0;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(0)      rotate(0deg);   opacity: 1; }
+      100% { transform: translateY(110vh)  rotate(720deg); opacity: 0; }
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      position: relative;
+      z-index: 3;
+      margin-top: 2rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      animation: fadeSlide 1.5s ease both;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Laser beams -->
+  <div class="lasers" id="lasers"></div>
+
+  <!-- Floating emojis -->
+  <div class="floaties" id="floaties"></div>
+
+  <!-- Confetti -->
+  <div class="confetti-wrap" id="confetti"></div>
+
+  <!-- Crown -->
+  <div class="crown">👑</div>
+
+  <!-- Card -->
+  <div class="card">
+    <div class="sparkle-ring"></div>
+    <div class="main-title">Chị Linh Vô Địch!</div>
+    <div class="sub-title">✨ THE UNDISPUTED QUEEN ✨</div>
+  </div>
+
+  <!-- Badges -->
+  <div class="badges">
+    <div class="badge" style="--d:0.3s">🏆 Vô địch toàn tập</div>
+    <div class="badge" style="--d:0.5s">💎 Xuất sắc nhất</div>
+    <div class="badge" style="--d:0.7s">⚡ Không ai sánh bằng</div>
+    <div class="badge" style="--d:0.9s">🌟 Huyền thoại sống</div>
+    <div class="badge" style="--d:1.1s">🔥 Đỉnh của chóp</div>
+    <div class="badge" style="--d:1.3s">👸 Nữ hoàng bất bại</div>
+  </div>
+
+  <div class="footer">made with 💛 for Chị Linh</div>
+
+  <script>
+    // Stars
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 120; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 2.5 + 0.5;
+      s.style.cssText = `
+        width:${size}px; height:${size}px;
+        top:${Math.random()*100}%; left:${Math.random()*100}%;
+        --d:${(Math.random()*3+1).toFixed(1)}s;
+        animation-delay:${(Math.random()*3).toFixed(1)}s;
+      `;
+      starsEl.appendChild(s);
+    }
+
+    // Laser beams
+    const lasersEl = document.getElementById('lasers');
+    for (let i = 0; i < 6; i++) {
+      const l = document.createElement('div');
+      l.className = 'laser';
+      l.style.cssText = `--d:${(Math.random()*4+3).toFixed(1)}s; animation-delay:${(Math.random()*4).toFixed(1)}s;`;
+      lasersEl.appendChild(l);
+    }
+
+    // Floating emojis
+    const emojis = ['🌟','✨','💫','🏆','👑','🎉','🎊','💛','🔥','⭐','💎','🥇'];
+    const floatEl = document.getElementById('floaties');
+    for (let i = 0; i < 20; i++) {
+      const f = document.createElement('div');
+      f.className = 'floaty';
+      f.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      f.style.cssText = `
+        left:${Math.random()*100}%;
+        --d:${(Math.random()*5+4).toFixed(1)}s;
+        animation-delay:${(Math.random()*6).toFixed(1)}s;
+      `;
+      floatEl.appendChild(f);
+    }
+
+    // Confetti
+    const colors = ['#FFD700','#FF6B6B','#6BFFD7','#FF6BFF','#6B9FFF','#FFFFFF'];
+    const confEl = document.getElementById('confetti');
+    for (let i = 0; i < 60; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.cssText = `
+        left:${Math.random()*100}%;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        width:${Math.random()*10+5}px; height:${Math.random()*10+5}px;
+        border-radius:${Math.random()>0.5?'50%':'2px'};
+        --d:${(Math.random()*4+3).toFixed(1)}s;
+        animation-delay:${(Math.random()*5).toFixed(1)}s;
+      `;
+      confEl.appendChild(c);
+    }
+  </script>
+</body>
+</html>
