@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Team Chị Linh Vô Địch 🏆</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 2rem 1rem 3rem;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+
+    /* Stars */
+    .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .star {
+      position: absolute; border-radius: 50%; background: #fff;
+      animation: twinkle var(--d) ease-in-out infinite alternate;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.1; transform: scale(1); }
+      to   { opacity: 1;   transform: scale(1.5); }
+    }
+
+    /* Lasers */
+    .lasers { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .laser {
+      position: absolute; height: 2px; width: 120vw; left: -10vw;
+      background: linear-gradient(90deg, transparent, rgba(255,215,0,0.35), transparent);
+      animation: laserSweep var(--d) ease-in-out infinite;
+    }
+    @keyframes laserSweep {
+      0%   { top: 110%; opacity: 0; }
+      30%  { opacity: 1; }
+      70%  { opacity: 1; }
+      100% { top: -10%;  opacity: 0; }
+    }
+
+    /* Floaties */
+    .floaties { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+    .floaty {
+      position: absolute; font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+      animation: floatUp var(--d) linear infinite; opacity: 0; bottom: -60px;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.8; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Confetti */
+    .confetti-wrap { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+    .confetti-piece {
+      position: absolute; top: -20px; border-radius: 2px;
+      animation: confettiFall var(--d) linear infinite; opacity: 0;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(0) rotate(0deg);   opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* Header */
+    .header { position: relative; z-index: 3; text-align: center; margin-bottom: 1.6rem; }
+    .crown {
+      font-size: clamp(3.5rem, 9vw, 6rem);
+      animation: crownBounce 1.2s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px gold);
+      display: block;
+    }
+    @keyframes crownBounce {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-16px) rotate(5deg); }
+    }
+    .header-title {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2rem, 7vw, 4.5rem);
+      background: linear-gradient(90deg, #FFD700, #FF6B6B, #FFD700, #fff700);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shine 2.5s linear infinite;
+      line-height: 1.15;
+    }
+    @keyframes shine {
+      0%   { background-position: 0% center; }
+      100% { background-position: 300% center; }
+    }
+    .header-sub {
+      font-size: clamp(0.85rem, 2.5vw, 1.2rem);
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 3px;
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    /* Grid of 4 cards */
+    .grid {
+      position: relative; z-index: 3;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      width: 100%;
+      max-width: 860px;
+    }
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      position: relative;
+      background: rgba(255,255,255,0.06);
+      border-radius: 1.6rem;
+      padding: 1.6rem 1.4rem 1.8rem;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      border: 1.5px solid var(--accent-soft);
+      box-shadow: 0 4px 40px var(--glow);
+      animation: cardPulse 3s ease-in-out infinite, cardIn 0.6s var(--delay) ease both;
+      overflow: hidden;
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes cardPulse {
+      0%, 100% { box-shadow: 0 4px 40px var(--glow); }
+      50%       { box-shadow: 0 4px 70px var(--glow-strong); }
+    }
+
+    .card-glow-ring {
+      position: absolute;
+      inset: -2px;
+      border-radius: 1.6rem;
+      border: 2px dashed var(--accent-soft);
+      animation: spinRing 12s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes spinRing { to { transform: rotate(360deg); } }
+
+    .card-avatar {
+      font-size: clamp(2.8rem, 7vw, 4rem);
+      display: block;
+      margin-bottom: 0.5rem;
+      animation: avatarBob 2s ease-in-out infinite;
+    }
+    @keyframes avatarBob {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .card-name {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      color: var(--accent);
+      text-shadow: 0 0 16px var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .card-title {
+      font-size: clamp(0.75rem, 2vw, 0.95rem);
+      font-weight: 700;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+
+    .card-praises {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .card-praises li {
+      font-size: clamp(0.78rem, 1.8vw, 0.95rem);
+      color: rgba(255,255,255,0.82);
+      background: rgba(255,255,255,0.05);
+      border-radius: 99px;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Footer */
+    .footer {
+      position: relative; z-index: 3;
+      margin-top: 2rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      text-align: center;
+    }
+
+    /* Color themes per card */
+    .card:nth-child(1) {
+      --accent: #FFD700;
+      --accent-soft: rgba(255,215,0,0.35);
+      --glow: rgba(255,215,0,0.18);
+      --glow-strong: rgba(255,215,0,0.4);
+      --delay: 0.1s;
+    }
+    .card:nth-child(2) {
+      --accent: #FF6BCA;
+      --accent-soft: rgba(255,107,202,0.35);
+      --glow: rgba(255,107,202,0.18);
+      --glow-strong: rgba(255,107,202,0.4);
+      --delay: 0.25s;
+    }
+    .card:nth-child(3) {
+      --accent: #6BF7C8;
+      --accent-soft: rgba(107,247,200,0.35);
+      --glow: rgba(107,247,200,0.18);
+      --glow-strong: rgba(107,247,200,0.4);
+      --delay: 0.4s;
+    }
+    .card:nth-child(4) {
+      --accent: #A78BFA;
+      --accent-soft: rgba(167,139,250,0.35);
+      --glow: rgba(167,139,250,0.18);
+      --glow-strong: rgba(167,139,250,0.4);
+      --delay: 0.55s;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stars" id="stars"></div>
+  <div class="lasers" id="lasers"></div>
+  <div class="floaties" id="floaties"></div>
+  <div class="confetti-wrap" id="confetti"></div>
+
+  <div class="header">
+    <span class="crown">👑</span>
+    <div class="header-title">Team Vô Địch!</div>
+    <div class="header-sub">✨ The Unstoppable Queens ✨</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Linh Nguyễn -->
+    <div class="card">
+      <div class="card-glow-ring"></div>
+      <span class="card-avatar">👸</span>
+      <div class="card-name">Linh Nguyễn</div>
+      <div class="card-title">🏆 Nữ Hoàng Bất Bại</div>
+      <ul class="card-praises">
+        <li>✨ Đỉnh của chóp, chóp của đỉnh</li>
+        <li>🔥 Tài năng không giới hạn</li>
+        <li>💎 Hiếm có khó tìm trên đời</li>
+        <li>⚡ Aura thì đỉnh, vibe thì ngầu</li>
+      </ul>
+    </div>
+
+    <!-- Thuỳ Dương -->
+    <div class="card">
+      <div class="card-glow-ring"></div>
+      <span class="card-avatar">🌸</span>
+      <div class="card-name">Thuỳ Dương</div>
+      <div class="card-title">💖 Thiên Tài Xuất Chúng</div>
+      <ul class="card-praises">
+        <li>🌟 Sáng như ngôi sao trên trời</li>
+        <li>🎯 Làm gì cũng thành công</li>
+        <li>💫 Charm ngàn người không thể cưỡng</li>
+        <li>🌈 Xịn sò từ tư duy đến style</li>
+      </ul>
+    </div>
+
+    <!-- Ngọc Linh -->
+    <div class="card">
+      <div class="card-glow-ring"></div>
+      <span class="card-avatar">💚</span>
+      <div class="card-name">Ngọc Linh</div>
+      <div class="card-title">🥇 Huyền Thoại Sống</div>
+      <ul class="card-praises">
+        <li>🏅 Không ai sánh bằng trên đời</li>
+        <li>🦋 Tỏa sáng không cần cố gắng</li>
+        <li>🍀 May mắn cho ai được gặp</li>
+        <li>⭐ Mỗi ngày đều là masterpiece</li>
+      </ul>
+    </div>
+
+    <!-- Mai Uyên -->
+    <div class="card">
+      <div class="card-glow-ring"></div>
+      <span class="card-avatar">🦋</span>
+      <div class="card-name">Mai Uyên</div>
+      <div class="card-title">🌙 Siêu Sao Vạn Người Mê</div>
+      <ul class="card-praises">
+        <li>🎆 Năng lượng bùng nổ cả phòng</li>
+        <li>🤩 Thông minh × Duyên dáng = ∞</li>
+        <li>🚀 Đi đến đâu rạng rỡ đến đó</li>
+        <li>💜 Vừa xinh vừa giỏi — combo hiếm</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer">made with 💛 · team vô địch forever</div>
+
+  <script>
+    // Stars
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 130; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const sz = Math.random() * 2.5 + 0.5;
+      s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*3+1).toFixed(1)}s;animation-delay:${(Math.random()*3).toFixed(1)}s`;
+      starsEl.appendChild(s);
+    }
+
+    // Lasers
+    const lasersEl = document.getElementById('lasers');
+    for (let i = 0; i < 8; i++) {
+      const l = document.createElement('div');
+      l.className = 'laser';
+      l.style.cssText = `--d:${(Math.random()*4+3).toFixed(1)}s;animation-delay:${(Math.random()*5).toFixed(1)}s`;
+      lasersEl.appendChild(l);
+    }
+
+    // Floating emojis
+    const emojis = ['🌟','✨','💫','🏆','👑','🎉','🎊','💛','🔥','⭐','💎','🥇','🌸','💚','💜','🦋','🎆','🌈'];
+    const floatEl = document.getElementById('floaties');
+    for (let i = 0; i < 28; i++) {
+      const f = document.createElement('div');
+      f.className = 'floaty';
+      f.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      f.style.cssText = `left:${Math.random()*100}%;--d:${(Math.random()*5+4).toFixed(1)}s;animation-delay:${(Math.random()*7).toFixed(1)}s`;
+      floatEl.appendChild(f);
+    }
+
+    // Confetti
+    const colors = ['#FFD700','#FF6BCA','#6BF7C8','#A78BFA','#FF6B6B','#FFFFFF','#6B9FFF'];
+    const confEl = document.getElementById('confetti');
+    for (let i = 0; i < 80; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      const sz = Math.random() * 10 + 5;
+      c.style.cssText = `left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};width:${sz}px;height:${sz}px;border-radius:${Math.random()>0.5?'50%':'2px'};--d:${(Math.random()*4+3).toFixed(1)}s;animation-delay:${(Math.random()*6).toFixed(1)}s`;
+      confEl.appendChild(c);
+    }
+  </script>
+</body>
+</html>
